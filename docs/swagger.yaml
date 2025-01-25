@@ -1,0 +1,216 @@
+definitions:
+  api.FirewallRuleRequest:
+    properties:
+      action:
+        type: string
+      dst_port:
+        type: string
+      ipset_name:
+        type: string
+    type: object
+  api.IPRequest:
+    properties:
+      group_name:
+        type: string
+      ip:
+        type: string
+    type: object
+  api.IPSetGroupRequest:
+    properties:
+      group_name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /firewall/ipset:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an IPSet group with the specified group name.
+      parameters:
+      - description: IPSet group details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.IPSetGroupRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request response
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error response
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete an IPSet group
+      tags:
+      - IPSet
+    post:
+      consumes:
+      - application/json
+      description: Creates an IPSet group with the specified group name.
+      parameters:
+      - description: IPSet group details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.IPSetGroupRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request response
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error response
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create an IPSet group
+      tags:
+      - IPSet
+  /firewall/ipset/ip:
+    delete:
+      consumes:
+      - application/json
+      description: Removes the specified IP address from the specified IPSet group.
+      parameters:
+      - description: IPSet group and IP details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.IPRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request response
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error response
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Remove IP from IPSet
+      tags:
+      - IPSet
+    post:
+      consumes:
+      - application/json
+      description: Adds the specified IP address to the specified IPSet group.
+      parameters:
+      - description: IPSet group and IP details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.IPRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request response
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error response
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Add IP to IPSet
+      tags:
+      - IPSet
+  /firewall/rules:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a firewall rule based on the specified IP set, destination
+        port, and action.
+      parameters:
+      - description: Firewall rule details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.FirewallRuleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request response
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error response
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete a firewall rule
+      tags:
+      - Firewall
+    post:
+      consumes:
+      - application/json
+      description: Adds a firewall rule based on the specified IP set, destination
+        port, and action.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request response
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error response
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Add a firewall rule
+      tags:
+      - Firewall
+swagger: "2.0"
